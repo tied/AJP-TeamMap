@@ -1,0 +1,5 @@
+it\com\atlassian\jira\servlet\TeamRelationSettingServletFuncTest.class
+ut\com\atlassian\jira\jira\webwork\WebActionTest.class
+ut\com\atlassian\jira\servlet\TeamRelationSettingServletTest.class
+it\com\atlassian\jira\teamMap\MyComponentWiredTest.class
+ut\com\atlassian\jira\teamMap\MyComponentUnitTest.class

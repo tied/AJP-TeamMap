@@ -1,0 +1,51 @@
+<table class="aui aui-table-sortable" id="relation-table" style="padding:10px">
+    <thead>
+        <tr>
+            <th style="width:12%">Title</th>
+            <th class="aui-table-column-unsortable" >Description</th>
+            <th style="width:10%">Color</th>
+            <th class="aui-table-column-unsortable" style="width:22%">Phrases</th>
+            <th class="aui-table-column-unsortable" style="width:10%">Active</th>
+            <th style="width:10%">Occurrence</th>
+            <th style="width:10%">Owner</th>
+            <th class="aui-table-column-unsortable" style="width:10%">Action</th>
+        </tr><tr>
+    </tr></thead>
+    <tbody>
+    	#foreach($relation in $relations)
+	        <tr id="$relation.getId()">
+	            <td>
+	            #if($relation.getTitle())
+	            	$relation.getTitle()
+	            #end
+	            </td>
+	            <td>
+	            #if($relation.getDescription())
+	            	$relation.getDescription()
+	            #end
+	            </td>
+	            <td><span class="aui-lozenge aui-lozenge-$relation.getColorBar()">$relation.getColorName()</span></td>
+	            <td>
+	            #if($relation.getPhrase())
+	            	<p>$relation.getPhrase()</p>
+	            #end
+	            #if($relation.getReversePhrase())
+	            	<p>$relation.getReversePhrase()</p>
+	            #end
+	            </td>
+	            <td>
+	            #if($relation.isShared())
+	            	<button class="aui-button aui-button-primary toggle-active" style="width:85%">On</button>
+	            #else
+	            	<button class="aui-button toggle-active" style="width:85%">Off</button>
+	            #end
+	            </td>
+	            <td>0</td>
+	            <td>$relation.getOwner().getDisplayName()</td>
+	            <td><button class="aui-button del-relation" ><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>
+	        </tr>
+       	#end
+    </tbody>
+</table>
+
+<br>

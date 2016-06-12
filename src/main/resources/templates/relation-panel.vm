@@ -1,0 +1,156 @@
+<div class="ghx-container">
+$relationPanelSelectedIssue --- <br>
+$relationPanelSelectedProject --- <br>
+$relationPanelUser ---- <br>
+$sizeofContext
+	<div class="aRelation aRelation-green">
+		<ul>
+			<li>
+				<span class="aui-avatar aui-avatar-small">
+					<span class="aui-avatar-inner">
+						<img src="http://dlsysadm-ap70:8082/jira2/secure/useravatar?size=small&amp;avatarId=10352"
+							alt="syuahk-local">
+					</span>
+				</span>
+				<span class="userDisplayName">Amirarsalan Khalilian</span>
+			</li>
+			<li class="relation-phrase">some things done to</li>
+			<li>
+			<span class="userDisplayName">Amirarsalan Khalilian</span>
+			<span class="aui-avatar aui-avatar-small">
+					<span class="aui-avatar-inner">
+						<img src="http://dlsysadm-ap70:8082/jira2/secure/useravatar?size=small&amp;avatarId=10352"
+							alt="syuahk-local">
+					</span>
+				</span>
+				
+			</li>
+		</ul>	
+	</div>
+	
+	<div class="aRelation aRelation-gray">
+		<ul>
+			<li>
+				<span class="aui-avatar aui-avatar-small">
+					<span class="aui-avatar-inner">
+						<img src="http://dlsysadm-ap70:8082/jira2/secure/useravatar?size=small&amp;avatarId=10352"
+							alt="syuahk-local">
+					</span>
+				</span>
+				<span class="userDisplayName">Amirarsalan Khalilian</span>
+			</li>
+			<li class="relation-phrase">some things done to</li>
+			<li>
+			<span class="userDisplayName">Amirarsalan Khalilian</span>
+			<span class="aui-avatar aui-avatar-small">
+					<span class="aui-avatar-inner">
+						<img src="http://dlsysadm-ap70:8082/jira2/secure/useravatar?size=small&amp;avatarId=10352"
+							alt="syuahk-local">
+					</span>
+				</span>
+				
+			</li>
+		</ul>	
+	</div>
+	
+	<div class="aRelation aRelation-red">
+		<ul>
+			<li>
+				<span class="aui-avatar aui-avatar-small">
+					<span class="aui-avatar-inner">
+						<img src="http://dlsysadm-ap70:8082/jira2/secure/useravatar?size=small&amp;avatarId=10352"
+							alt="syuahk-local">
+					</span>
+				</span>
+				<span class="userDisplayName">Amirarsalan Khalilian</span>
+			</li>
+			<li class="relation-phrase">some things done to</li>
+			<li>
+			<span class="userDisplayName">Amirarsalan Khalilian</span>
+			<span class="aui-avatar aui-avatar-small">
+					<span class="aui-avatar-inner">
+						<img src="http://dlsysadm-ap70:8082/jira2/secure/useravatar?size=small&amp;avatarId=10352"
+							alt="syuahk-local">
+					</span>
+				</span>
+				
+			</li>
+		</ul>	
+	</div>
+	
+	<div class="aRelation aRelation-blue">
+		<ul>
+			<li>
+				<span class="aui-avatar aui-avatar-small">
+					<span class="aui-avatar-inner">
+						<img src="http://dlsysadm-ap70:8082/jira2/secure/useravatar?size=small&amp;avatarId=10352"
+							alt="syuahk-local">
+					</span>
+				</span>
+				<span class="userDisplayName">Amirarsalan Khalilian</span>
+			</li>
+			<li class="relation-phrase">some things done to</li>
+			<li>
+			<span class="userDisplayName">Amirarsalan Khalilian</span>
+			<span class="aui-avatar aui-avatar-small">
+					<span class="aui-avatar-inner">
+						<img src="http://dlsysadm-ap70:8082/jira2/secure/useravatar?size=small&amp;avatarId=10352"
+							alt="syuahk-local">
+					</span>
+				</span>
+				
+			</li>
+		</ul>	
+	</div>
+	
+	<div class="aRelation aRelation-brown">
+		<ul>
+			<li>
+				<span class="aui-avatar aui-avatar-small">
+					<span class="aui-avatar-inner">
+						<img src="http://dlsysadm-ap70:8082/jira2/secure/useravatar?size=small&amp;avatarId=10352"
+							alt="syuahk-local">
+					</span>
+				</span>
+				<span class="userDisplayName">Amirarsalan Khalilian</span>
+			</li>
+			<li class="relation-phrase">some things done to</li>
+			<li>
+			<span class="userDisplayName">Amirarsalan Khalilian</span>
+			<span class="aui-avatar aui-avatar-small">
+					<span class="aui-avatar-inner">
+						<img src="http://dlsysadm-ap70:8082/jira2/secure/useravatar?size=small&amp;avatarId=10352"
+							alt="syuahk-local">
+					</span>
+				</span>
+				
+			</li>
+		</ul>	
+	</div>
+	
+	<div class="aRelation aRelation-green">
+		<ul>
+			<li>
+				<span class="aui-avatar aui-avatar-small">
+					<span class="aui-avatar-inner">
+						<img src="http://dlsysadm-ap70:8082/jira2/secure/useravatar?size=small&amp;avatarId=10352"
+							alt="syuahk-local">
+					</span>
+				</span>
+				<span class="userDisplayName">Amirarsalan Khalilian</span>
+			</li>
+			<li class="relation-phrase">some things done to</li>
+			<li>
+			<span class="userDisplayName">Amirarsalan Khalilian</span>
+			<span class="aui-avatar aui-avatar-small">
+					<span class="aui-avatar-inner">
+						<img src="http://dlsysadm-ap70:8082/jira2/secure/useravatar?size=small&amp;avatarId=10352"
+							alt="syuahk-local">
+					</span>
+				</span>
+				
+			</li>
+		</ul>	
+	</div>
+
+</div>

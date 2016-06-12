@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+  <plugin-info>
+    <description>${project.description}</description>
+    <version>${project.version}</version>
+    <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+    <param name="plugin-icon">images/pluginIcon.png</param>
+    <param name="plugin-logo">images/pluginLogo.png</param>
+  </plugin-info>
+  <!-- add our i18n resource -->
+  <resource type="i18n" name="i18n" location="TeamMap"/>
+  <!-- add our web resources -->
+  <web-resource key="TeamMap-resources" name="TeamMap Web Resources">
+    <dependency>com.atlassian.auiplugin:ajs</dependency>
+    <resource type="download" name="TeamMap.css" location="/css/TeamMap.css"/>
+    <resource type="download" name="TeamMap.js" location="/js/TeamMap.js"/>
+    <resource type="download" name="images/" location="/images"/>
+    <dependency>com.atlassian.auiplugin:jquery-ui-other</dependency>
+    <dependency>com.atlassian.auiplugin:aui-select</dependency>
+    <dependency>com.atlassian.auiplugin:aui-experimental-table-sortable</dependency>
+    <dependency>com.atlassian.auiplugin:aui-sidebar</dependency>
+    <dependency>com.atlassian.auiplugin:dialog2</dependency>
+    <dependency>com.atlassian.auiplugin:aui-flag</dependency>
+    <context>TeamMap</context>
+  </web-resource>
+  <servlet name="Team Relation Setting Servlet" i18n-name-key="team-relation-setting-servlet.name" key="team-relation-setting-servlet" class="com.atlassian.jira.servlet.TeamRelationSettingServlet">
+    <description key="team-relation-setting-servlet.description">The Team Relation Setting Servlet Plugin</description>
+    <url-pattern>/teamrelations</url-pattern>
+  </servlet>
+  <web-item name="Team Map" i18n-name-key="team-map.name" key="team-map" section="system.top.navigation.bar" weight="1000">
+    <description key="team-map.description">The Team Map Plugin</description>
+    <label key="team-map.label"/>
+    <condition class="com.atlassian.jira.jira.webwork.WebCondition"/>
+    <link linkId="team-map-link"/>
+  </web-item>
+  <web-section name="Team Map Section" i18n-name-key="team-map-section.name" key="team-map-section" location="team-map-link" weight="1000">
+    <description key="team-map-section.description">The Team Map Section Plugin</description>
+  </web-section>
+  <web-item name="My Team Maps" i18n-name-key="my-team-maps.name" key="my-team-maps" section="team-map-link/team-map-section" weight="1000">
+    <description key="my-team-maps.description">The My Team Maps Plugin</description>
+    <label key="my-team-maps.label"/>
+    <link linkId="my-team-maps-link">/plugins/servlet/??</link>
+  </web-item>
+  <web-item name="Team Relations" i18n-name-key="team-relations.name" key="team-relations" section="team-map-link/team-map-section" weight="1000">
+    <description key="team-relations.description">The Team Relations Plugin</description>
+    <label key="team-relations.label"/>
+    <link linkId="team-relations-link">/plugins/servlet/teamrelations</link>
+  </web-item>
+  <webwork1 key="web-action" name="Web Action" i18n-name-key="web-action.name">
+    <description key="web-action.description">The Web Action Plugin</description>
+    <actions>
+      <action name="com.atlassian.jira.jira.webwork.WebAction" alias="WebAction"/>
+    </actions>
+  </webwork1>
+  <ao key="ao-module">
+    <description>The module configuring the Active Objects service used by this plugin</description>
+    <entity>com.atlassian.jira.ao.SavedRelation</entity>
+    <entity>com.atlassian.jira.ao.SavedRelationship</entity>
+  </ao>
+  <web-panel name="Relation" i18n-name-key="relation.name" key="relation" location="atl.gh.issue.details.tab" weight="1000">
+    <description key="relation.description">The Relation Plugin</description>
+    <context-provider class="com.atlassian.jira.context.IssuePanelRelationContextProvider"/>
+    <resource name="view" type="velocity" location="templates/relation-panel.vm"/>
+    <resource name="iconRelation" type="download" location="images/lightbulb.png"/>
+    <label key="relation.issue.panel.reference"/>
+    <tooltip key="relation.issue.panel.reference.tooltip"/>
+  </web-panel>
+  <web-panel name="Relation-beta" i18n-name-key="relation-beta.name" key="relation-beta" location="atl.jira.view.issue.right.context" weight="20">
+    <description key="relation-beta.description">The Relation Plugin</description>
+    <context-provider class="com.atlassian.jira.context.IssuePanelRelationContextProvider"/>
+    <resource name="view" type="velocity" location="templates/relation-panel.vm"/>
+    <label key="relation.issue.panel.reference"/>
+  </web-panel>
+  <web-resource name="Web Panel Resources" i18n-name-key="web-panel-resources.name" key="web-panel-resources">
+    <description key="web-panel-resources.description">The Web Panel Resources Plugin</description>
+    <resource type="download" name="relationPanel.css" location="/css/relationPanel.css"/>
+    <context>atl.general</context>
+  </web-resource>
+</atlassian-plugin>

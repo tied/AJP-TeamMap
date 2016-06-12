@@ -1,0 +1,34 @@
+<header class="aui-page-header">
+	<div class="aui-page-header-inner">
+		<div class="aui-page-header-image">
+			<span class="aui-avatar aui-avatar-large aui-avatar-project">
+				<span class="aui-avatar-inner">
+					#if ($project.getAvatar().getId())
+						<img src="$avatarUrl?avatarId=$project.getAvatar().getId()"></img>
+					#end
+			</span>
+			</span>
+		</div>
+		<div class="aui-page-header-main">
+			<h1>$project.getName()</h1>
+			#if($mode=="maps")
+				<a href="#dwarfers" aria-owns="dwarfers" aria-haspopup="true" class="aui-button aui-style-default aui-dropdown2-trigger">
+					#if($currentSprint)
+						$currentSprint.getName()
+					#else
+						Overall
+					#end
+				</a>
+				<!-- Dropdown -->
+				<div id="dwarfers" class="aui-style-default aui-dropdown2">
+				    <ul class="aui-list-truncate">
+				    	<li><a href="?sprint=">Overall</a></li>
+				    	#foreach($sprint in $sprints)
+						<li><a href="?sprint=$sprint.getId()">$sprint.getName()</a></li>
+						#end
+				    </ul>
+				</div>
+			#end
+		</div>
+	</div>
+</header>

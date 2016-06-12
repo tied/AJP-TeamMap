@@ -1,0 +1,28 @@
+<div class="aui-sidebar-group aui-sidebar-group-tier-one">
+	<div class="aui-nav-heading" title="Stuff">
+		<strong>Links</strong>
+	</div>
+	<ul class="aui-nav">
+		<li 
+		#if($mode=="maps")
+			class="aui-nav-selected" 
+		#end
+		>
+			<a class="aui-nav-item" href="#" title=""> 
+				<span class="aui-icon aui-icon-small aui-iconfont-doc js-copy-clipboard"></span>
+				<span class="aui-nav-item-label">My Team's Maps</span>
+			</a>
+		</li>
+		
+		<li
+		#if($mode=="setting")
+			class="aui-nav-selected" 
+		#end
+		>
+			<a class="aui-nav-item" href="#" title="">
+				<span class="aui-icon aui-icon-small aui-iconfont-devtools-submodule"></span>
+				<span class="aui-nav-item-label">My Team's Relations</span>
+			</a>
+		</li>
+	</ul>
+</div>

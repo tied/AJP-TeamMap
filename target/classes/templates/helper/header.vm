@@ -1,0 +1,25 @@
+<header class="aui-page-header">
+    <div class="aui-page-header-inner">
+        <div class="aui-page-header-image">
+            <span class="aui-avatar aui-avatar-large aui-avatar-project">
+                <span class="aui-avatar-inner">
+                    <span class="fa-stack fa-lg">
+					  <i class="fa fa-map-o fa-stack-2x"></i>
+					  <i class="fa fa-share-alt fa-stack-1x"></i>
+					</span>
+                </span>
+            </span>
+        </div>
+        <div class="aui-page-header-main">
+            <ol class="aui-nav aui-nav-breadcrumbs">
+                <li><a href="#">SomeName</a></li>
+            </ol>
+            <h1>Team Map</h1>
+        </div>
+        <div class="aui-page-header-actions">
+            <div class="aui-buttons">
+                <button class="aui-button aui-button-primary saveChartTrigger" id="save-chart-button">do sth</button>
+            </div>
+        </div>
+    </div>
+</header>
