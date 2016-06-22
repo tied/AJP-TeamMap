@@ -5,7 +5,7 @@
 #set($pluginResource="$baseURL/download/resources/com.atlassian.jira.TeamMap:TeamMap-resources")
 #set($avatarUrl="$baseURL/secure/useravatar")
 $webResourceManager.requireResource("com.atlassian.jira.TeamMap:TeamMap-resources")
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+$webResourceManager.requireResource("com.atlassian.jira.TeamMap:team-relation-settings-servlet-resources")
 </head>
 <body>
 <section id="content" role="main">

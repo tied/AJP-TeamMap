@@ -1,0 +1,36 @@
+<tr id="$relation.getId()">
+    <td>
+    #if($relation.getTitle())
+    	$relation.getTitle()
+    #end
+    </td>
+    <td>
+    #if($relation.getDescription())
+    	$relation.getDescription()
+    #end
+    </td>
+    <td><span class="aui-lozenge aui-lozenge-$relation.getColorBar()">$relation.getColorName()</span></td>
+    <td>
+    #if($relation.getPhrase())
+    	<p>$relation.getPhrase()</p>
+    #end
+    #if($relation.getReversePhrase())
+    	<p>$relation.getReversePhrase()</p>
+    #end
+    </td>
+    <td>
+    #if($relation.isShared())
+    	<button class="aui-button aui-button-primary toggle-active" style="width:85%">On</button>
+    #else
+    	<button class="aui-button toggle-active" style="width:85%">Off</button>
+    #end
+    </td>
+    #if($relationshipService)
+    	<td>$relationshipService.countByRelation($relation.getId())</td>
+    #else
+    <td>0</td>
+    #end
+    <td>$relation.getOwner().getDisplayName()</td>
+    <td><button class="aui-button del-relation" ><span class="aui-icon aui-icon-small aui-iconfont-delete">delete</span></td>
+</tr>
+       

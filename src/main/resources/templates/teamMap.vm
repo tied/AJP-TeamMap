@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>Team Map</title>
+<meta name="decorator" content="atl.general">
+#set($pluginResource="$baseURL/download/resources/com.atlassian.jira.TeamMap:TeamMap-resources")
+#set($avatarUrl="$baseURL/secure/useravatar")
+$webResourceManager.requireResource("com.atlassian.jira.TeamMap:TeamMap-resources")
+$webResourceManager.requireResource("com.atlassian.jira.TeamMap:my-team-maps-resources")
+</head>
+<body>
+<section id="content" role="main">
+		<!-- AUI Sidebar -->
+		<div class="aui-sidebar">
+			<div class="aui-sidebar-wrapper">
+				<div class="aui-sidebar-body">
+					#parse("templates/helper/slideBarHeader.vm")					
+					<!-- AUI Navigation -->
+					<nav class="aui-navgroup aui-navgroup-vertical">
+						<div class="aui-navgroup-inner">
+							##parse("templates/helper/slideBarAction.vm")
+							#parse("templates/helper/slideBarNav.vm")
+						</div>
+					</nav>
+				</div>
+
+				<!-- Sidebar footer contains the expand/collapse trigger, and optionally a button or a dropdown with configuration settings -->
+				<div class="aui-sidebar-footer">
+					 <a
+						class="aui-button aui-button-subtle aui-sidebar-toggle aui-sidebar-footer-tipsy"
+						title="Collapse sidebar ( [ )"> <span
+						class="aui-icon aui-icon-small"></span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- end AUI Sidebar -->
+		 #parse("templates/helper/header.vm")
+		<div class="aui-page-panel">
+        <div class="aui-page-panel-inner">
+	        <div class="aui-group">
+		        <div class="aui-item">
+			     Hi World!
+			    </div>
+			</div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

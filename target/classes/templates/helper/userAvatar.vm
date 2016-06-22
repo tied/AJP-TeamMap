@@ -1,0 +1,5 @@
+<span class="aui-avatar aui-avatar-small">
+	<span class="aui-avatar-inner">
+		<img src="$avatarUrl">
+	</span>
+</span>

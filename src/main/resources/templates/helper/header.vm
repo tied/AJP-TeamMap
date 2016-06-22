@@ -3,10 +3,7 @@
         <div class="aui-page-header-image">
             <span class="aui-avatar aui-avatar-large aui-avatar-project">
                 <span class="aui-avatar-inner">
-                    <span class="fa-stack fa-lg">
-					  <i class="fa fa-map-o fa-stack-2x"></i>
-					  <i class="fa fa-share-alt fa-stack-1x"></i>
-					</span>
+                    
                 </span>
             </span>
         </div>

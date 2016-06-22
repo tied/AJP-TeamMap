@@ -1,8 +1,6 @@
 div.aRelation {
-	margin:5px;
-	padding:3px;
 	margin-top:2px;
-	margin-bottom:3px;
+	margin-bottom:5px;
 }
 div.aRelation-brown .relation-phrase {
 	background-color:rgba(129, 91, 58,0.7);
@@ -64,20 +62,35 @@ div.aRelation > ul{
 }
 div.aRelation > ul > li{
     padding: 1px;
-    text-align:center;
+    text-align:left;
     padding:3px;
 }
 div.aRelation > ul > li:first-child{
 	border-bottom:none;
 	border-radius:4px 4px 0px 0px;
-	text-align:left;
 }
 div.aRelation > ul > li:last-child{
 	border-top:none;
 	border-radius:0px 0px 4px 4px;
-	text-align:right;
 }
 div.aRelation > ul > li span.userDisplayName{
 	position: relative;
     bottom: 3px;
+}
+div.aRelation > ul > li span.DeleteLink,
+div.aRelation > ul > li span.relationDate{
+    float: right;
+    font-size: 90%;
+    color: #999;
+    padding-top: 5px;
+    padding-right: 5px;
+}
+div.aRelation > ul > li span.DeleteLink{
+	cursor:pointer;
+}
+div.aRelation > ul > li span.DeleteLink:hover{
+	color: #777;
+}
+button#report-a-relationship {
+	margin-bottom:10px;
 }

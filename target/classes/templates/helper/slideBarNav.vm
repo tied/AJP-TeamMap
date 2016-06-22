@@ -8,7 +8,7 @@
 			class="aui-nav-selected" 
 		#end
 		>
-			<a class="aui-nav-item" href="#" title=""> 
+			<a class="aui-nav-item" href="$baseURL/plugins/servlet/teammap" title=""> 
 				<span class="aui-icon aui-icon-small aui-iconfont-doc js-copy-clipboard"></span>
 				<span class="aui-nav-item-label">My Team's Maps</span>
 			</a>
@@ -19,7 +19,7 @@
 			class="aui-nav-selected" 
 		#end
 		>
-			<a class="aui-nav-item" href="#" title="">
+			<a class="aui-nav-item" href="$baseURL/plugins/servlet/teamrelations" title="">
 				<span class="aui-icon aui-icon-small aui-iconfont-devtools-submodule"></span>
 				<span class="aui-nav-item-label">My Team's Relations</span>
 			</a>

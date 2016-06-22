@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.atlassian.activeobjects.external.ActiveObjects;
 import com.atlassian.jira.ao.RelationService;
+import com.atlassian.jira.ao.RelationshipService;
 import com.atlassian.jira.ao.SavedRelation;
 import com.atlassian.jira.bc.issue.search.SearchService;
 import com.atlassian.jira.component.ComponentAccessor;
@@ -20,6 +21,7 @@ import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.sal.api.user.UserProfile;
 import com.atlassian.templaterenderer.TemplateRenderer;
 import com.atlassian.jira.jira.webwork.WebAction;
+import com.atlassian.jira.model.ItemException;
 import com.atlassian.jira.model.Relation;
 
 import javax.inject.Inject;
@@ -58,6 +60,7 @@ public class TeamRelationSettingServlet extends HttpServlet{
 	private final ActiveObjects ao;
 	private String baseUrl;
 	private RelationService relationService;
+	private RelationshipService relationshipService;
 
 	@Inject
 	public TeamRelationSettingServlet(UserManager userManager, LoginUriProvider loginUriProvider, TemplateRenderer templateRenderer,
@@ -73,6 +76,7 @@ public class TeamRelationSettingServlet extends HttpServlet{
 		baseUrl=ComponentAccessor.getApplicationProperties().getString(APKeys.JIRA_BASEURL);
 		this.ao=ao;
 		relationService=new RelationService(ao);
+		relationshipService=new RelationshipService(ao);
 	}
 	
     @Override
@@ -92,59 +96,67 @@ public class TeamRelationSettingServlet extends HttpServlet{
 		List<Relation> relations=new ArrayList<Relation>();
 		for(SavedRelation savedRelation : relationService.allinProject(project.getKey())){
 			if(savedRelation.getOwnerId().equals(userProfile.getUsername()) || savedRelation.isShared()){
-				Relation relation= new Relation(savedRelation);
-				relations.add(relation);
+				Relation relation;
+				try {
+					relation = new Relation(savedRelation);
+					relations.add(relation);
+				} catch (ItemException e) {}
+				
 			}
     	}
 		context.put("relations", relations);
+		context.put("relationshipService", relationshipService);
 		
 		context.put("baseURL", baseUrl);
 		context.put("mode", "setting");
 		templateRenderer.render("templates/relationSetting.vm", context, response.getWriter());
     }
-    private void redirectToLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		response.sendRedirect(loginUriProvider.getLoginUri(getUri(request)).toASCIIString());
-	}
-
-	private URI getUri(HttpServletRequest request) {
-		StringBuffer builder = request.getRequestURL();
-		if (request.getQueryString() != null) {
-			builder.append("?");
-			builder.append(request.getQueryString());
-		}
-		return URI.create(builder.toString());
-	}
-
-	private ApplicationUser getCurrentUser(HttpServletRequest req) {
-		com.atlassian.jira.user.util.UserManager jiraUserManager = ComponentAccessor.getUserManager();
-		return jiraUserManager.getUserByName(userManager.getRemoteUser(req).getUsername());
-	}
-	
+    	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		UserProfile userProfile = userManager.getRemoteUser(request);
 		if (userProfile == null) {
-			redirectToLogin(request, response);
+			response.getWriter().write("error");
 			return;
 		}
+
+		Map<String, Object> context = new HashMap<String, Object>();
+
 		final String title = request.getParameter("title");
 		final String description = request.getParameter("description");
 		final String phrase = request.getParameter("phrase");
 		final String reversePhrase = request.getParameter("reversePhrase");
 		final int color = Integer.parseInt(request.getParameter("color"));
+		
 		ApplicationUser user=getCurrentUser(request);
 		WebAction action = new WebAction();
 		Project project = action.returnSelectedProject();
-		SavedRelation newRelation =relationService.add(title, description, user.getUsername(), project.getKey(), phrase, reversePhrase ,color, false);
-		String status="<tr id='"+newRelation.getID()+"'><td>"+title+"</td><td>"+description+"</td><td><span class='aui-lozenge aui-lozenge-"+Relation.colorBars[color]+"'>"+Relation.colorNames[color]+"</span></td><td><p>"+phrase+"</p><p>"+reversePhrase+"</p></td><td><button class='aui-button toggle-active' style='width:85%'>Off</button></td><td>0</td><td>"+user.getDisplayName()+"</td><td><button class='aui-button del-relation' ><i class='fa fa-trash-o' aria-hidden='true'></i></button></td></tr>";
-        response.getWriter().write(status);
+		
+		if(title==null || description==null || phrase==null || reversePhrase==null
+				|| user==null || project==null){
+			response.getWriter().write("error");
+			return;
+		}
+							
+		SavedRelation newRelation =relationService.add(title, description, user, project, phrase, reversePhrase ,color, false);
+		try {
+			Relation relation=new Relation(newRelation);
+			context.put("relation", relation);
+			
+			context.put("baseURL", baseUrl);
+			templateRenderer.render("templates/relationRow.vm", context, response.getWriter());
+		} catch (ItemException e) {
+			response.getWriter().write("error");
+			return;		
+		}
+		
 	}
 	
 	@Override
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		UserProfile userProfile = userManager.getRemoteUser(request);
 		if (userProfile == null) {
-			redirectToLogin(request, response);
+			response.getWriter().write("error");
 			return;
 		}
 		String status="success";
@@ -160,7 +172,7 @@ public class TeamRelationSettingServlet extends HttpServlet{
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		UserProfile userProfile = userManager.getRemoteUser(request);
 		if (userProfile == null) {
-			redirectToLogin(request, response);
+			response.getWriter().write("error");
 			return;
 		}
 		String status="error";
@@ -174,6 +186,23 @@ public class TeamRelationSettingServlet extends HttpServlet{
     		status="success";
     	}
 		response.getWriter().write(status);
+	}
+	private void redirectToLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		response.sendRedirect(loginUriProvider.getLoginUri(getUri(request)).toASCIIString());
+	}
+
+	private URI getUri(HttpServletRequest request) {
+		StringBuffer builder = request.getRequestURL();
+		if (request.getQueryString() != null) {
+			builder.append("?");
+			builder.append(request.getQueryString());
+		}
+		return URI.create(builder.toString());
+	}
+
+	private ApplicationUser getCurrentUser(HttpServletRequest req) {
+		com.atlassian.jira.user.util.UserManager jiraUserManager = ComponentAccessor.getUserManager();
+		return jiraUserManager.getUserByName(userManager.getRemoteUser(req).getUsername());
 	}
 
 }

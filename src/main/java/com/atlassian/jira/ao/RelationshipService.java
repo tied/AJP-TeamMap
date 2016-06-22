@@ -1,10 +1,15 @@
 package com.atlassian.jira.ao;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import com.atlassian.activeobjects.external.ActiveObjects;
 import com.atlassian.jira.charts.Chart;
+import com.atlassian.jira.issue.Issue;
+import com.atlassian.jira.model.Relation;
+import com.atlassian.jira.project.Project;
+import com.atlassian.jira.user.ApplicationUser;
 import com.atlassian.sal.api.transaction.TransactionCallback;
 
 import net.java.ao.EntityManager;
@@ -19,9 +24,26 @@ public class RelationshipService {
 		this.ao = checkNotNull(ao);
 	}
 
-	public SavedRelationship add() {
+	public SavedRelationship add(Issue issue,Project project, Relation relation, Date date, ApplicationUser userOne, ApplicationUser userTwo) {
 		final SavedRelationship relationship = ao.create(SavedRelationship.class);
-		
+		relationship.setIssueId(issue.getId());
+		relationship.setProjectKey(project.getKey());
+		relationship.setRelationId(relation.getId());
+		relationship.setReportDate(date);
+		relationship.setUserOneId(userOne.getUsername());
+		relationship.setUserTwoId(userTwo.getUsername());
+		relationship.save();
+		return relationship;
+	}
+	
+	public SavedRelationship add(long issueId,String projectId, Relation relation, Date date, String userOne, String userTwo) {
+		final SavedRelationship relationship = ao.create(SavedRelationship.class);
+		relationship.setIssueId(issueId);
+		relationship.setProjectKey(projectId);
+		relationship.setRelationId(relation.getId());
+		relationship.setReportDate(date);
+		relationship.setUserOneId(userOne);
+		relationship.setUserTwoId(userTwo);
 		relationship.save();
 		return relationship;
 	}
@@ -34,8 +56,12 @@ public class RelationshipService {
 		return newArrayList(ao.find(SavedRelationship.class, "PROJECT_ID like ?", projeckKey));
 	}
 	
-	public List<SavedRelationship> allforIssue(String issueId) {
+	public List<SavedRelationship> allforIssue(long issueId) {
 		return newArrayList(ao.find(SavedRelationship.class, "Issue_ID like ?", issueId));
+	}
+	
+	public List<SavedRelationship> allforRelation(int relationId) {
+		return newArrayList(ao.find(SavedRelationship.class, "RELATION_ID like ?", relationId));
 	}
 
 	public void deleteMe(String id) {
@@ -50,6 +76,14 @@ public class RelationshipService {
 			result=relationip;
 		}
 		return result;
+	}
+
+	public int countByIssue(long issueId) {
+		return allforIssue(issueId).size();
+	}
+	
+	public int countByRelation(int relationId) {
+		return allforRelation(relationId).size();
 	}
 	
 }

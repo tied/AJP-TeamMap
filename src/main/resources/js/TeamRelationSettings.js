@@ -6,6 +6,10 @@ AJS.$(document).ready(function(){
 		var relationPhrase=AJS.$("input#relation-phrase").val();
 		var relationReversePhrase=AJS.$("input#relation-reverse-phrase").val();
 		var relationColor=AJS.$("select#relation-color").val();
+		if(relationTitle=="" || relationDesc=="" || relationPhrase=="" ||  relationReversePhrase=="" || relationColor=="") {
+			throwError('Form Error!','<p>Please Fill Out Mandatory field Marked by *</p>');
+			return;
+		}
 		AJS.$.post("",
 		        {
 					title: relationTitle,
@@ -15,31 +19,16 @@ AJS.$(document).ready(function(){
 					color: relationColor
 		        },
 		        function(status){
-		            if(status.length>0){
+		            if(status.match("^<tr")){
 		            	AJS.$('form#relation-form').trigger("reset");
-		            	require(['aui/flag'], function(flag) {
-		        	        var myFlag = flag({
-		        	        type: 'success',
-		        	        title: 'Relation Added',
-		        	        close: 'auto',
-		        	        persistent: false,
-		        	        body:   '<p>New Relation Has Been Saved!</p>'
-		        	        });
-		        	    });
+		            	throwSuccess("Relation Added","<p>New Relation Has Been Saved!</p>");
+		            	AJS.$("#relation-table").fadeTo(100,1);
 		            	AJS.$("#relation-table").append(status);
 		            }
-		            else {
-		            	require(['aui/flag'], function(flag) {
-		        	        var myFlag = flag({
-		        	        type: 'error',
-		        	        title: 'Relation Not Added!',
-		        	        close: 'auto',
-		        	        persistent: false,
-		        	        body:   '<p>Something is Wrong!!!</p>'
-		        	        });
-		        	    });
-		            }
-		            
+		            else if(status=="error")
+		            	throwError('Relation Not Added!','<p>Something is Wrong!!!</p>');
+		            else
+		            	console.log(status);
 		});
 	});
 	AJS.$(document).on("click",".del-relation",function(e){
@@ -50,18 +39,18 @@ AJS.$(document).ready(function(){
 		    url: '?id='+id,
 		    type: 'DELETE',
 		    success: function(status) {
-		    	That.parents("tr").fadeOut(100);
+		    	if(status=="success"){
+			    	That.parents("tr").fadeOut(100).remove();
+			    	if(AJS.$("#relation-table tr").length<2)
+			    		AJS.$("#relation-table").fadeTo(100,0);
+		    	}
+		    	else if(status=="error")
+		    		throwError('Relation Not Removed!','<p>Something is Wrong!!!</p>');
+		    	else
+	            	console.log(status);
 		    },
 		    error: function(status){
-		    	require(['aui/flag'], function(flag) {
-        	        var myFlag = flag({
-        	        type: 'error',
-        	        title: 'Relation Not Removed!',
-        	        close: 'auto',
-        	        persistent: false,
-        	        body:   '<p>Something is Wrong!!!</p>'
-        	        });
-        	    });		    	
+		    	throwError('Relation Not Removed!','<p>Something is Wrong!!!</p>');  	
 		    }
 		});
 	});
@@ -72,7 +61,8 @@ AJS.$(document).ready(function(){
 		var buttonOldText=That.html();
 		if(buttonOldText=="On")
 			buttonText="Off";
-		That.html('<i class="fa fa-circle-o-notch fa-spin fa-fw"></i>');
+		That.spin();
+		That.html("");
 		var id=That.parents("tr").attr("id");	
 		AJS.$.ajax({
 		    url: '?id='+id+'&toggle=true',
@@ -85,22 +75,38 @@ AJS.$(document).ready(function(){
 			    		That.removeClass("aui-button-primary");		    	
 			    	That.html(buttonText);
 		    	}
-		    	else
+		    	else if(status=="error")
 		    		That.html(buttonOldText);
+		    	else
+	            	console.log(status);
 		    },
 		    error: function(status){
-		    	require(['aui/flag'], function(flag) {
-        	        var myFlag = flag({
-        	        type: 'error',
-        	        title: 'Relation Not Removed!',
-        	        close: 'auto',
-        	        persistent: false,
-        	        body:   '<p>Something is Wrong!!!</p>'
-        	        });
-        	    });	
+		    	throwError("Relation Activation Error!","<p>Something is Wrong!!!</p>");
 		    	That.html(buttonOldText);
 		    }
 		});
 	});
 	
 });
+function throwError(title,body){
+	require(['aui/flag'], function(flag) {
+        var myFlag = flag({
+        type: 'error',
+        title: title,
+        close: 'auto',
+        persistent: false,
+        body:   body
+        });
+    });
+}
+function throwSuccess(title,body){
+	require(['aui/flag'], function(flag) {
+        var myFlag = flag({
+        type: 'success',
+        title: title,
+        close: 'auto',
+        persistent: false,
+        body:   body
+        });
+    });
+}

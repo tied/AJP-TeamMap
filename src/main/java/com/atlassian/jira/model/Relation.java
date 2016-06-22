@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import com.atlassian.jira.ao.SavedRelation;
 import com.atlassian.jira.component.ComponentAccessor;
+import com.atlassian.jira.project.Project;
+import com.atlassian.jira.project.ProjectManager;
 import com.atlassian.jira.user.ApplicationUser;
 import com.atlassian.jira.user.util.UserManager;
 
@@ -11,6 +13,7 @@ import com.atlassian.jira.user.util.UserManager;
 public class Relation {
 	private int Id;
 	private ApplicationUser owner;
+	private Project project;
 	private String title;
 	private String description;
 	private String phrase;
@@ -18,20 +21,27 @@ public class Relation {
 	private boolean shared;
 	private int color;
 	public static String[] colorBars={"success","error","current","complete","moved",""};
-	public static String[] colorNames={"Green","Red","Yellow","Blue","Brown","Gray"};
+	public static String[] colorNames={"green","red","yellow","blue","brown","gray"};
+	private UserManager userManager=ComponentAccessor.getUserManager();
+	private ProjectManager projectManager=ComponentAccessor.getProjectManager();
 	
-	public Relation(SavedRelation record){
-		UserManager userManager=ComponentAccessor.getUserManager();
-//		ProjectManager projectManager=ComponentAccessor.getProjectManager();
-		setOwner(userManager.getUserByName(record.getOwnerId()));
-//		setProject(projectManager.getProjectObjByKey(record.getProjectId()));
-		setTitle(record.getTitle());
-		setDescription(record.getDescription());
-		setShared(record.isShared());
-		setId(record.getID());
-		setPhrase(record.getPhrase());
-		setReversePhrase(record.getReversePhrase());
-		setColor(record.getColor());
+	public Relation(SavedRelation record) throws ItemException{
+		try{
+			setOwner(userManager.getUserByName(record.getOwnerId()));
+			setTitle(record.getTitle());
+			setDescription(record.getDescription());
+			setShared(record.isShared());
+			setId(record.getID());
+			setPhrase(record.getPhrase());
+			setReversePhrase(record.getReversePhrase());
+			setColor(record.getColor());
+			setProject(projectManager.getProjectByCurrentKeyIgnoreCase(record.getProjectId()));
+		}
+		catch (Exception e){
+			ItemException ie=new ItemException();
+			throw ie;
+		}
+		
 	}
 
 	public int getId() {
@@ -109,5 +119,13 @@ public class Relation {
 		if(this.color>=0 && this.color<colorNames.length)
 			colorName=colorNames[this.color];
 		return colorName;
+	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
 	}
 }

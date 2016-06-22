@@ -1,0 +1,42 @@
+	<section role="dialog" id="report-a-relationship-dialog" class="aui-layer aui-dialog2 aui-dialog2-small" aria-hidden="true">
+	    <header class="aui-dialog2-header">
+	        <h2 class="aui-dialog2-header-main">Always use sentence case</h2>
+	        <a class="aui-dialog2-header-close">
+	            <span class=" aui-icon aui-icon-small aui-iconfont-close-dialog">Close</span>
+	        </a>
+	    </header>
+	    <div class="aui-dialog2-content">
+	   	        <form id="submit-relationship" action="$baseURL/plugins/servlet/relationshipservlet" class="aui top-label">
+	   	        	<input type="hidden" id="issue-id" value="$issue.getId()">
+	   	        	<input type="hidden" id="project-key" value="$project.getKey()">
+				    <div class="field-group">
+				        <label for="first-user-select">First User</label>
+				        <select class="select full-width-field" id="first-user-select">
+				            <option value="$user.getUsername()">$user.getDisplayName()</option>
+				        </select>
+				    </div>
+				    <div class="field-group">
+				        <label for="relation-select">Relation</label>
+				        <select class="select full-width-field" id="relation-select">
+				            #foreach($relation in $relations)
+				            	<option value="$relation.getId()">$relation.getTitle(): $relation.getPhrase() </option>
+				            #end
+				        </select>
+				    </div>
+				    <div class="field-group">
+				        <label for="second-user-select">Second User</label>
+				        <select class="select full-width-field" id="second-user-select">
+				            #foreach($projectUser in $projectUsers)
+				            	<option value="$projectUser.getUsername()">$projectUser.getDisplayName() </option>
+				            #end
+				        </select>
+				    </div>
+				</form>
+	    </div>
+	    <footer class="aui-dialog2-footer">
+	        <div class="aui-dialog2-footer-actions">
+	            <button id="dialog-submit-button" class="aui-button aui-button-primary">Submit</button>
+	            <button id="dialog-close-button" class="aui-button aui-button-link dialog-close-button">Close</button>
+	        </div>
+	    </footer>
+	</section>

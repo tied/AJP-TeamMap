@@ -1,8 +1,11 @@
 package com.atlassian.jira.ao;
 
+
+
+import java.util.Date;
+
 import net.java.ao.Entity;
 import net.java.ao.Preload;
-import net.java.ao.schema.*;
 
 @Preload
 public interface SavedRelationship extends Entity {
@@ -12,10 +15,10 @@ public interface SavedRelationship extends Entity {
     void setUserOneId(String userId);
     String getUserTwoId();
     void setUserTwoId(String userId);
-    String getProjectId();
-    void setProjectId(String projectId);
-    String getIssueId();
-    void setIssueId(String issueId);
-    String getReportDate();
-    void setReportDate(String date);
+    String getProjectKey();
+    void setProjectKey(String projectKey);
+    long getIssueId();
+    void setIssueId(long issueId);
+    Date getReportDate();
+    void setReportDate(Date date);
 }
