@@ -1,22 +1,53 @@
 <header class="aui-page-header">
     <div class="aui-page-header-inner">
+    	#if($mode=="setting")    	
         <div class="aui-page-header-image">
             <span class="aui-avatar aui-avatar-large aui-avatar-project">
                 <span class="aui-avatar-inner">
-                    
+                   <img src="$pluginResource/images/TeamMapLogo.png" alt="Team Map Logo"> 
                 </span>
             </span>
         </div>
         <div class="aui-page-header-main">
             <ol class="aui-nav aui-nav-breadcrumbs">
-                <li><a href="#">SomeName</a></li>
+                <li><a href="http://miraclelab.com">Miracle Lab</a></li>
+                <li><a href="#">Help me on this</a></li>
             </ol>
             <h1>Team Map</h1>
         </div>
-        <div class="aui-page-header-actions">
+        #end
+        #if ($mode=="maps")
+        <div class="aui-page-header-main">
+            <form class="aui top-label" action="" method="GET" id="jql-form">
+			    <div class="field-group">
+			    	<input type="hidden" name="jql-mode" value="true">
+			        <input class="text full-width-field" id="custom-jql-input"
+			        	#if ($selectedFilter.getQuery().getQueryString())
+			        		value="$selectedFilter.getQuery().getQueryString()" disabled
+			        	#end
+			        	#if ($requestedQuery)
+			        		value="$requestedQuery.getQueryString()"
+			        	#end
+			        	placeholder="Enter JQL Here..."
+			        	type="text">
+			    </div>
+			</form>
+        </div>
+        <div class="aui-page-header-actions" style="text-align:left">
             <div class="aui-buttons">
-                <button class="aui-button aui-button-primary saveChartTrigger" id="save-chart-button">do sth</button>
+                <button class="aui-button aui-button-primary" id="custom-jql-button" style="width:140px">
+					<span class="aui-icon aui-icon-small aui-iconfont-info"></span>
+					<span>
+					#if ($selectedFilter.getQuery().getQueryString())
+			        	Custom JQL
+			        #else
+						Search
+					#end
+					</span>
+                </button>
             </div>
         </div>
+        
+        #end
     </div>
 </header>

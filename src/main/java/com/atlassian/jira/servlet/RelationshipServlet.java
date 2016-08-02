@@ -23,6 +23,8 @@ import com.atlassian.sal.api.pluginsettings.PluginSettingsFactory;
 import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.sal.api.user.UserProfile;
 import com.atlassian.templaterenderer.TemplateRenderer;
+import com.atlassian.upm.api.license.PluginLicenseManager;
+import com.atlassian.upm.api.license.entity.PluginLicense;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -50,10 +52,12 @@ public class RelationshipServlet extends HttpServlet{
 	private String baseUrl;
 	private RelationService relationService;
 	private RelationshipService relationshipService;
+	@ComponentImport
+	private final PluginLicenseManager licenseManager;
     
 	@Inject
 	public RelationshipServlet(UserManager userManager, LoginUriProvider loginUriProvider, TemplateRenderer templateRenderer,
-			ActiveObjects ao) {
+			ActiveObjects ao, PluginLicenseManager licenseManager) {
 		this.userManager = userManager;
 		this.loginUriProvider = loginUriProvider;
 		this.templateRenderer = templateRenderer;
@@ -61,6 +65,7 @@ public class RelationshipServlet extends HttpServlet{
 		this.ao=ao;
 		relationService=new RelationService(ao);
 		relationshipService=new RelationshipService(ao);
+		this.licenseManager=licenseManager;
 	}
 	
 	@Override
@@ -97,6 +102,10 @@ public class RelationshipServlet extends HttpServlet{
 		UserProfile userProfile = userManager.getRemoteUser(request);
 		if (userProfile == null) {
 			redirectToLogin(request, response);
+			return;
+		}
+		if(!LicenseCheck()){
+			response.getWriter().write("licenseError");
 			return;
 		}
 		try{
@@ -144,6 +153,17 @@ public class RelationshipServlet extends HttpServlet{
 	private ApplicationUser getCurrentUser(HttpServletRequest req) {
 		com.atlassian.jira.user.util.UserManager jiraUserManager = ComponentAccessor.getUserManager();
 		return jiraUserManager.getUserByName(userManager.getRemoteUser(req).getUsername());
+	}
+	
+	private boolean LicenseCheck(){
+		if (licenseManager.getLicense().isDefined()) {
+			PluginLicense pluginLicense = licenseManager.getLicense().get();
+			if (pluginLicense.getError().isDefined())
+				return false;
+			else
+				return true;
+		}else
+		return false;
 	}
 
 }

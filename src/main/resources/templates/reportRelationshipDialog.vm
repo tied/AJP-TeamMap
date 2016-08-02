@@ -1,6 +1,6 @@
 	<section role="dialog" id="report-a-relationship-dialog" class="aui-layer aui-dialog2 aui-dialog2-small" aria-hidden="true">
 	    <header class="aui-dialog2-header">
-	        <h2 class="aui-dialog2-header-main">Always use sentence case</h2>
+	        <h2 class="aui-dialog2-header-main">Report a user interaction</h2>
 	        <a class="aui-dialog2-header-close">
 	            <span class=" aui-icon aui-icon-small aui-iconfont-close-dialog">Close</span>
 	        </a>
@@ -27,7 +27,9 @@
 				        <label for="second-user-select">Second User</label>
 				        <select class="select full-width-field" id="second-user-select">
 				            #foreach($projectUser in $projectUsers)
+				            	#if(!$projectUser.equals($user))
 				            	<option value="$projectUser.getUsername()">$projectUser.getDisplayName() </option>
+				            	#end
 				            #end
 				        </select>
 				    </div>

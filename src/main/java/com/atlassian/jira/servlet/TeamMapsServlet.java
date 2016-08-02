@@ -7,17 +7,32 @@ import com.atlassian.activeobjects.external.ActiveObjects;
 import com.atlassian.jira.ao.RelationService;
 import com.atlassian.jira.ao.RelationshipService;
 import com.atlassian.jira.ao.SavedRelation;
+import com.atlassian.jira.bc.JiraServiceContext;
+import com.atlassian.jira.bc.JiraServiceContextImpl;
+import com.atlassian.jira.bc.filter.SearchRequestService;
 import com.atlassian.jira.bc.issue.search.SearchService;
+import com.atlassian.jira.bc.user.search.AssigneeService;
 import com.atlassian.jira.component.ComponentAccessor;
 import com.atlassian.jira.config.properties.APKeys;
+import com.atlassian.jira.issue.Issue;
 import com.atlassian.jira.issue.IssueManager;
+import com.atlassian.jira.issue.search.SearchException;
+import com.atlassian.jira.issue.search.SearchRequest;
+import com.atlassian.jira.issue.search.SearchRequestManager;
 import com.atlassian.jira.jira.webwork.WebAction;
+import com.atlassian.jira.jql.builder.JqlClauseBuilder;
+import com.atlassian.jira.jql.builder.JqlQueryBuilder;
 import com.atlassian.jira.model.ItemException;
 import com.atlassian.jira.model.Relation;
+import com.atlassian.jira.model.TeamMap;
 import com.atlassian.jira.project.Project;
 import com.atlassian.jira.project.ProjectManager;
+import com.atlassian.jira.security.PermissionManager;
+import com.atlassian.jira.security.plugin.ProjectPermissionKey;
 import com.atlassian.jira.user.ApplicationUser;
+import com.atlassian.jira.web.bean.PagerFilter;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
+import com.atlassian.query.Query;
 import com.atlassian.sal.api.auth.LoginUriProvider;
 import com.atlassian.sal.api.pluginsettings.PluginSettingsFactory;
 import com.atlassian.sal.api.user.UserManager;
@@ -33,9 +48,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
 @Named("TeamMapsServlet")
 public class TeamMapsServlet extends HttpServlet{
@@ -59,6 +77,7 @@ public class TeamMapsServlet extends HttpServlet{
    	private String baseUrl;
    	private RelationService relationService;
    	private RelationshipService relationshipService;
+   	private SearchRequestService searchRequestService;
    	
    	@Inject
    	public TeamMapsServlet(UserManager userManager, LoginUriProvider loginUriProvider, TemplateRenderer templateRenderer,
@@ -75,6 +94,27 @@ public class TeamMapsServlet extends HttpServlet{
 		this.ao=ao;
 		relationService=new RelationService(ao);
 		relationshipService=new RelationshipService(ao);
+		searchRequestService=ComponentAccessor.getComponent(SearchRequestService.class);
+	}
+   	
+   	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		UserProfile userProfile = userManager.getRemoteUser(request);
+		if (userProfile == null) {
+			response.getWriter().write("error");
+			return;
+		}
+		ApplicationUser user=getCurrentUser(request);
+		String jqlQuery = request.getParameter("query");
+		SearchService.ParseResult parseResult =searchService.parseQuery(user, jqlQuery);
+		
+		String status="error";
+		if (parseResult.isValid()) {
+			status="ok";
+			Query query = parseResult.getQuery();
+			request.getSession().setAttribute("requestedQuery", query);
+		}
+		response.getWriter().write(status);
 	}
    	
    	@Override
@@ -87,9 +127,101 @@ public class TeamMapsServlet extends HttpServlet{
 			redirectToLogin(request, response);
 			return;
 		}
+		
+		ApplicationUser user=getCurrentUser(request);
+		String selectedFilterParam=request.getParameter("filter");
+		String selectedRelationParam=request.getParameter("relation");
+		String jqlMode=request.getParameter("jql-mode");
+		
+		Query query =null;
+		if(jqlMode!=null){
+			Object queryObject= request.getSession().getAttribute("requestedQuery");
+			if(queryObject!=null){
+				query=(Query) queryObject;
+				context.put("requestedQuery", query);
+			}			
+		}
+		
+		SearchRequest selectedFilter=null;
+		if(selectedFilterParam!=null){
+			JiraServiceContext ctx = new JiraServiceContextImpl(user);
+			selectedFilter=searchRequestService.getFilter(ctx, Long.parseLong(selectedFilterParam));
+			if(selectedFilter!=null)
+				context.put("selectedFilter", selectedFilter);
+		}
+		
+		TeamMap teamMap=null;
+		if(selectedFilter!=null){
+			teamMap=new TeamMap(selectedFilter,searchService, relationService, relationshipService);
+			try {
+				teamMap.initiate();
+			} catch (SearchException e) {
+				teamMap=null;
+			} catch (ItemException e) {
+				teamMap=null;
+			}
+		} else if(query!=null){
+			teamMap=new TeamMap(query,searchService, relationService, relationshipService);
+			try {
+				teamMap.initiate();
+			} catch (SearchException e) {
+				teamMap=null;
+			} catch (ItemException e) {
+				teamMap=null;
+			}
+		}
+		
+		if(teamMap!=null){
+			context.put("issuesCount", teamMap.getIssuesCount());
+			context.put("totalRelationshipsCount", teamMap.getTotalRelationShipsCount());
+			context.put("filterRelationBar", teamMap.getFilterRelationBar());
+			context.put("relations", teamMap.getRelations());
+			context.put("relationOccurence", teamMap.getRelationOccurence());
+		}
+		
+		Relation selectedRelation=null;
+		if(teamMap!=null && selectedRelationParam!=null){
+			try {
+				selectedRelation= new Relation(relationService.findRelation(selectedRelationParam));
+			} catch (ItemException e) {
+				selectedRelation=null;
+			}
+		}
+		
+		if(selectedRelation!=null){
+			context.put("selectedRelation", selectedRelation);
+			teamMap.setRelation(selectedRelation);
+			teamMap.generateRelationships();
+			context.put("relationUserBar",teamMap.getRelationUserBar());
+		} else if (teamMap!=null) {
+			if (teamMap.getRelations() != null) {
+				if (teamMap.getRelations().size() > 0) {
+					selectedRelation = teamMap.getRelations().get(0);
+					context.put("selectedRelation", selectedRelation);
+					teamMap.setRelation(selectedRelation);
+					teamMap.generateRelationships();
+					context.put("relationUserBar", teamMap.getRelationUserBar());
+				}
+			}
+		}
+		
+		if(teamMap!=null){
+			if(teamMap.getRelationships()!=null && teamMap.getUserList()!=null){
+				teamMap.generateEmptyMap();
+				teamMap.fillMap();
+				context.put("userList", teamMap.getUserList());
+				context.put("teamMap", teamMap.getTeamMap());
+			}
+		}
+		
 		WebAction action=new WebAction();
 		Project project = action.returnSelectedProject();
 		context.put("project", project);
+		
+		List<SearchRequest> filters=getProjectFilters(project);
+		
+		
+		context.put("filters", filters);
 		
 		context.put("baseURL", baseUrl);
 		context.put("mode", "maps");
@@ -113,5 +245,25 @@ public class TeamMapsServlet extends HttpServlet{
 		com.atlassian.jira.user.util.UserManager jiraUserManager = ComponentAccessor.getUserManager();
 		return jiraUserManager.getUserByName(userManager.getRemoteUser(req).getUsername());
 	}
+	
+	private List<ApplicationUser> getProjectAssignableUsers(Project project) {
+		AssigneeService assigneeService = ComponentAccessor.getComponent(AssigneeService.class);
+		Collection<ApplicationUser> assignableUsers=assigneeService.findAssignableUsers("", project);
+		List<ApplicationUser> assignableUsersList=new ArrayList<ApplicationUser>();
+		if(assignableUsers!=null)
+			assignableUsersList=new ArrayList<ApplicationUser>(assignableUsers);
+		return assignableUsersList;
+	}
+	 private List<SearchRequest> getProjectFilters(Project project){
+		 SearchRequestService searchRequestService=ComponentAccessor.getComponent(SearchRequestService.class);
+			List<ApplicationUser> projectUsers=getProjectAssignableUsers(project);
+			List<SearchRequest> filters=new ArrayList<SearchRequest>();
+			for(ApplicationUser appUser : projectUsers){
+				Collection<SearchRequest> userFilters=searchRequestService.getNonPrivateFilters(appUser);
+				if(userFilters!=null)
+					filters.addAll(userFilters);
+			}
+		return filters;
+	 }
 
 }

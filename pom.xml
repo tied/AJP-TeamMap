@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.atlassian.jira</groupId>
     <artifactId>TeamMap</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0</version>
     <organization>
-        <name>Example Company</name>
-        <url>http://www.example.com/</url>
+        <name>Miracle Lab</name>
+        <url>http://www.miraclelab.co/</url>
     </organization>
     <name>TeamMap</name>
     <description>This is the TeamMap plugin for Atlassian JIRA.</description>
@@ -123,6 +123,18 @@
 			<version>${ao.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+            <groupId>com.atlassian.upm</groupId>
+            <artifactId>licensing-api</artifactId>
+            <version>2.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.upm</groupId>
+            <artifactId>upm-api</artifactId>
+            <version>2.0.1</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -190,7 +202,7 @@
         </plugins>
     </build>
     <properties>
-        <jira.version>7.1.4</jira.version>
+        <jira.version>7.1.9</jira.version>
         <amps.version>6.2.3</amps.version>
         <greenhopper.version>6.7.11</greenhopper.version>
 		<ao.version>1.1.0</ao.version>

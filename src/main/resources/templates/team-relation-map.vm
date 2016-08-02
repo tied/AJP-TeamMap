@@ -1,0 +1,5 @@
+<table class="relation-map-frame adjustable-heights"><tr>
+		<td align="center" valign="middle">
+		#parse("templates/map-table.vm")
+		</td>
+</tr></table>

@@ -1,0 +1,17 @@
+<div class="filters-section-inner">
+	<ul class="filter-list">
+		#foreach($filter in $filters)
+			<li #if($filter.getId()==$selectedFilter.getId())
+					class="selected"
+				#end
+			 id="$filter.getId()">
+				<h3>$filter.getName()</h3> <small>$filter.getOwner().getDisplayName() </small>
+				#if($filter.getDescription())
+					<p>$filter.getDescription()</p>
+				#else
+					<p>No description</p>
+				#end
+			</li>
+		#end
+	</ul>
+</div>

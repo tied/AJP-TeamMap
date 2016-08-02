@@ -6,8 +6,9 @@
 		<description>${project.description}</description>
 		<version>${project.version}</version>
 		<vendor name="${project.organization.name}" url="${project.organization.url}" />
-		<param name="plugin-icon">images/pluginIcon.png</param>
-		<param name="plugin-logo">images/pluginLogo.png</param>
+		<param name="plugin-icon">images/TeamMapIcon.png</param>
+		<param name="plugin-logo">images/TeamMapLogo.png</param>
+		<param name="atlassian-licensing-enabled">true</param>
 	</plugin-info>
 	<resource type="i18n" name="i18n" location="TeamMap" />
 	<web-resource key="TeamMap-resources" name="TeamMap Web Resources">
@@ -20,6 +21,7 @@
 		<dependency>com.atlassian.auiplugin:aui-flag</dependency>
 		<dependency>com.atlassian.auiplugin:aui-experimental-iconfont</dependency>
 		<dependency>com.atlassian.auiplugin:aui-spinner</dependency>
+		<dependency>com.atlassian.auiplugin:aui-experimental-tooltips</dependency>
 		<context>TeamMap</context>
 	</web-resource>
 	<web-resource name="Web Panel Resources" i18n-name-key="web-panel-resources.name" key="web-panel-resources">

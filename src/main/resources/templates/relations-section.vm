@@ -1,0 +1,40 @@
+<div class="relations-section-inner">
+	<div class="aui-group">
+		<div class="aui-item info-icon">
+			<span class="aui-icon aui-icon-large aui-iconfont-info">Info</span>
+		</div>
+		<div class="aui-item info-text">
+			<p>Select a filter from right panel or create a quick filter for this project from above panel, then you can choose a realation to map among the issues</p>
+		</div>
+	</div>
+	<div class="aui-group">
+		<div class="aui-item">
+			<table class="filter-statistic"><tr>
+					<td><span>
+					#if($issuesCount)
+						$issuesCount
+					#else
+						n/a
+					#end
+					</span><br><span>Issues</span></td>
+					<td><span>
+					#if($totalRelationshipsCount)
+						$totalRelationshipsCount
+					#else
+						n/a
+					#end
+					</span><br><span>Relationships</span></td>
+			</tr></table>
+		</div>
+	</div>
+	#set($colorBars=$filterRelationBar)
+	#parse("templates/helper/colorsBar.vm")
+	
+	#parse("templates/relations-selection-section.vm")
+	
+	#parse("templates/relations-info-section.vm")
+	
+	#set($colorBars=$relationUserBar)
+	#parse("templates/helper/colorsBar.vm")
+	<br><br>
+</div>

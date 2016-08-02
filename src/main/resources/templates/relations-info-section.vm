@@ -1,0 +1,39 @@
+#if(!$selectedRelation)
+<div style="opacity:0.3" class="aui-group">
+	<div class="aui-item relations-info-section">
+		<h5>Phrase</h5>
+		<p><span>John </span>
+			did something cool for 
+		<span> Jane</span></p>
+		
+		<h5>Reverse Phrase</h5>
+		<p><span>Jane </span>
+			receive something cool from
+			<span> John</span></p>
+		
+		<h5>Description</h5>
+		<p class="relation-description">Relation Description ... </p>
+	</div>
+</div>
+#else
+<div class="aui-group">
+	<div class="aui-item relations-info-section">
+		#set($occurrence=$relationOccurence.get($selectedRelation))
+		<p>$selectedRelation.getTitle() happened <span class="aui-badge">$occurrence</span> time</p>
+		<h5>Phrase</h5>
+		<p><span>John </span>
+			$selectedRelation.getPhrase() 
+		<span> Jane</span></p>
+		
+		<h5>Reverse Phrase</h5>
+		<p><span>Jane </span>
+			$selectedRelation.getReversePhrase() 
+			<span> John</span></p>
+		
+		<h5>Description</h5>
+		<p class="relation-description">
+			$selectedRelation.getDescription()
+		 </p>
+	</div>
+</div>
+#end

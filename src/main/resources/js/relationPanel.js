@@ -19,12 +19,12 @@ AJS.$(document).ready(function(){
 			    	relationship.fadeOut(110);
 		    	}
 		    	else if (status=="error")
-		    		throwError("Error in removing!","<p>Something is Wrong...</p>");
+		    		throwError("Error in removing!","<p>Something is Wrong...</p>","auto");
 		    	else
 		    		console.log(status);
 		    },
 		    error: function(status){
-		    	throwError("Error in removing!","<p>Something is Wrong...</p>");	
+		    	throwError("Error in removing!","<p>Something is Wrong...</p>","auto");	
 		    }
 		});
 	});
@@ -50,8 +50,9 @@ AJS.$(document).ready(function(){
 		            	AJS.$("#relationships-box").prepend(status);
 		            }
 		            else if(status=="error") 
-		            	throwError("Relationship Not Added!","<p>Something is Wrong...</p>");
-	
+		            	throwError("Relationship Not Added!","<p>Something is Wrong...</p>","auto");
+		            else if(status=="licenseError") 
+		            	throwError("License Error!","<p>Team Map plugin's License is either expired or invalid.</p>","manual");
 		            else 
 		            	console.log(status);
 		            
@@ -60,12 +61,12 @@ AJS.$(document).ready(function(){
 	    AJS.dialog2("#report-a-relationship-dialog").hide();
 	});
 });
-function throwError(title,body){
+function throwError(title,body,close){
 	require(['aui/flag'], function(flag) {
         var myFlag = flag({
         type: 'error',
         title: title,
-        close: 'auto',
+        close: close,
         persistent: false,
         body:   body
         });

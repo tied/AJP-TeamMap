@@ -1,6 +1,7 @@
 package com.atlassian.jira.context;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -15,6 +16,7 @@ import com.atlassian.jira.ao.RelationshipService;
 import com.atlassian.jira.ao.SavedRelation;
 import com.atlassian.jira.ao.SavedRelationship;
 import com.atlassian.jira.avatar.Avatar;
+import com.atlassian.jira.bc.user.search.AssigneeService;
 import com.atlassian.jira.component.ComponentAccessor;
 import com.atlassian.jira.config.properties.APKeys;
 import com.atlassian.jira.issue.Issue;
@@ -64,12 +66,12 @@ public class IssuePanelRelationContextProvider implements ContextProvider
     @Override
     public Map<String, Object> getContextMap(Map context){
     	WebAction action=new WebAction();
-    	project=action.getSelectedProjectObject();
     	user=action.getLoggedInUser();
     	if(context.get("issue")!=null){
     		issue=(Issue) context.get("issue");
     	}
-    	List<ApplicationUser> projectAssignableUsers=getProjectAssignableUsers(project,user);
+    	project=issue.getProjectObject();
+    	List<ApplicationUser> projectAssignableUsers=getProjectAssignableUsers(project);
     	List<Relation> relations=new ArrayList<Relation>();
 		for(SavedRelation savedRelation : relationService.allActiveInProject(project.getKey())) {
 			Relation relation;
@@ -106,19 +108,11 @@ public class IssuePanelRelationContextProvider implements ContextProvider
                 
     }
     
-    private List<ApplicationUser> getProjectAssignableUsers(Project project,ApplicationUser user){
-    	PermissionManager permissionManager=ComponentAccessor.getPermissionManager();
-    	ProjectPermissionKey projectPermissionKey=new ProjectPermissionKey("ASSIGNABLE_USER");
-
-    	UserManager userManager=ComponentAccessor.getUserManager();
-    	Set<ApplicationUser> allUser=userManager.getAllUsers();
-    	List<ApplicationUser> projectAssignableUsers=new ArrayList<ApplicationUser>();
-    	for(ApplicationUser applicationUser :  allUser){
-    		if(permissionManager.hasPermission(projectPermissionKey, project, applicationUser) && !applicationUser.equals(user))
-    			projectAssignableUsers.add(applicationUser);
-    	}
-    	
-		return projectAssignableUsers;
-    }
+    private List<ApplicationUser> getProjectAssignableUsers(Project project) {
+		AssigneeService assigneeService = ComponentAccessor.getComponent(AssigneeService.class);
+		Collection<ApplicationUser> assignableUsers=assigneeService.findAssignableUsers("", project);
+		List<ApplicationUser> assignableUsersList=new ArrayList<ApplicationUser>(assignableUsers);
+		return assignableUsersList;
+	}
 
 }

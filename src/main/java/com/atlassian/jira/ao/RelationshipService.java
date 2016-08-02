@@ -79,11 +79,11 @@ public class RelationshipService {
 	}
 
 	public int countByIssue(long issueId) {
-		return allforIssue(issueId).size();
+		return ao.count(SavedRelationship.class, "Issue_ID like ?", issueId);
 	}
 	
 	public int countByRelation(int relationId) {
-		return allforRelation(relationId).size();
+		return ao.count(SavedRelationship.class, "RELATION_ID like ?", relationId);
 	}
 	
 }

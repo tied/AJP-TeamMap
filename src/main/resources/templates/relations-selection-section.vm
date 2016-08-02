@@ -1,0 +1,24 @@
+<div class="aui-group">
+		<div class="aui-item realtions-selection-section">
+			<form class="aui top-label" id="realtions-selection">
+				<p>right panel or create a quick filter for this project from above panel</p>
+				<fieldset class="top-label">
+					<label for="realtion-select">Select a Relation to be Mapped</label> 
+					<select class="select full-width-field"
+							#if(!$relations)
+								disabled
+							#end
+					 id="realtion-select" name="realtion-select">
+						#foreach($rel in $relations)
+						#set($occurrence=$relationOccurence.get($rel))
+							<option 
+								#if($rel.getId()==$selectedRelation.getId())
+									selected
+								#end
+							value="$rel.getId()">$rel.getTitle()($occurrence)</option>
+						#end
+					</select>
+				</fieldset>
+			</form>
+		</div>
+	</div>

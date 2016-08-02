@@ -1,8 +1,8 @@
-<atlassian-plugin key="${project.groupId}.${project.artifactId}-tests" name="${project.name}" plugins-version="2">
+<atlassian-plugin key="com.atlassian.jira.TeamMap-tests" name="TeamMap" plugins-version="2">
     <plugin-info>
-        <description>${project.description}</description>
-        <version>${project.version}</version>
-        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <description>This is the TeamMap plugin for Atlassian JIRA.</description>
+        <version>1.0</version>
+        <vendor name="Miracle Lab" url="http://www.miraclelab.co/" />
     </plugin-info>
 
     <!-- from our base plugin -->

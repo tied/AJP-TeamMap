@@ -1,8 +1,11 @@
 C:\Users\akhal\Desktop\Jira-master\Team Map\src\main\java\com\atlassian\jira\model\ItemException.java
 C:\Users\akhal\Desktop\Jira-master\Team Map\src\main\java\com\atlassian\jira\ao\RelationshipService.java
 C:\Users\akhal\Desktop\Jira-master\Team Map\src\main\java\com\atlassian\jira\context\IssuePanelRelationContextProvider.java
+C:\Users\akhal\Desktop\Jira-master\Team Map\src\main\java\com\atlassian\jira\model\ColorBar.java
 C:\Users\akhal\Desktop\Jira-master\Team Map\src\main\java\com\atlassian\jira\servlet\TeamRelationSettingServlet.java
 C:\Users\akhal\Desktop\Jira-master\Team Map\src\main\java\com\atlassian\jira\model\Relation.java
+C:\Users\akhal\Desktop\Jira-master\Team Map\src\main\java\com\atlassian\jira\model\TeamMap.java
+C:\Users\akhal\Desktop\Jira-master\Team Map\src\main\java\com\atlassian\jira\model\MapCell.java
 C:\Users\akhal\Desktop\Jira-master\Team Map\src\main\java\com\atlassian\jira\ao\SavedRelation.java
 C:\Users\akhal\Desktop\Jira-master\Team Map\src\main\java\com\atlassian\jira\servlet\RelationshipServlet.java
 C:\Users\akhal\Desktop\Jira-master\Team Map\src\main\java\com\atlassian\jira\jira\webwork\WebCondition.java

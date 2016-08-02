@@ -1,0 +1,31 @@
+<table class="map-table theme-$selectedRelation.getColorBar()">
+	<tr class="table-user-head">
+		<th></th>
+		#foreach($user in $userList)
+		<th class="user-cell-h" align="center" valign="middle">
+			<div>$user.getDisplayName()</div>
+		</th>
+		#end
+	</tr>
+	#foreach($user1 in $userList)
+		#set($rowMap=$teamMap.get($user1))
+		<tr>
+			<td class="user-cell-v" align="right" valign="middle">
+			<div>$user1.getDisplayName()</div>
+			</td>
+			#foreach($user2 in $userList)
+			<td class="relationship-cell " align="center" valign="middle">
+				#if($rowMap.get($user2).getValue()==0)
+					<div style="opacity:1"></div>
+					<div></div>
+				#else
+					#set($opacity=$rowMap.get($user2).getTencity())
+					#set($opacity=1.0-$opacity)
+					<div style="opacity:$opacity"></div>
+					<div>$rowMap.get($user2).getValue()</div>
+				#end
+			</td>
+			#end
+		</tr>
+	#end
+</table>

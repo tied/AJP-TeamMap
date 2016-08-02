@@ -1,0 +1,5 @@
+<div class="relations-colors-bar">
+	#foreach($colorBar in $colorBars)
+		<div class="$colorBar.getColor()-bar" style="width:$colorBar.getPercentage()%" title="$colorBar.getInfo()"></div>
+	#end
+</div>
