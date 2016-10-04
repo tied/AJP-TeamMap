@@ -1,4 +1,4 @@
-package com.atlassian.jira.context;
+package co.miracleLab.jira.context;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,19 +11,11 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 import com.atlassian.activeobjects.external.ActiveObjects;
-import com.atlassian.jira.ao.RelationService;
-import com.atlassian.jira.ao.RelationshipService;
-import com.atlassian.jira.ao.SavedRelation;
-import com.atlassian.jira.ao.SavedRelationship;
 import com.atlassian.jira.avatar.Avatar;
 import com.atlassian.jira.bc.user.search.AssigneeService;
 import com.atlassian.jira.component.ComponentAccessor;
 import com.atlassian.jira.config.properties.APKeys;
 import com.atlassian.jira.issue.Issue;
-import com.atlassian.jira.jira.webwork.WebAction;
-import com.atlassian.jira.model.ItemException;
-import com.atlassian.jira.model.Relation;
-import com.atlassian.jira.model.Relationship;
 import com.atlassian.jira.permission.ProjectPermission;
 import com.atlassian.jira.plugin.webfragment.contextproviders.AbstractJiraContextProvider;
 import com.atlassian.jira.plugin.webfragment.model.JiraHelper;
@@ -38,6 +30,15 @@ import com.atlassian.jira.util.collect.MapBuilder;
 import com.atlassian.plugin.PluginParseException;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.plugin.web.ContextProvider;
+
+import co.miracleLab.jira.ao.RelationService;
+import co.miracleLab.jira.ao.RelationshipService;
+import co.miracleLab.jira.ao.SavedRelation;
+import co.miracleLab.jira.ao.SavedRelationship;
+import co.miracleLab.jira.jira.webwork.WebAction;
+import co.miracleLab.jira.model.ItemException;
+import co.miracleLab.jira.model.Relation;
+import co.miracleLab.jira.model.Relationship;
 
 @Named("IssuePanelRelationContextProvider")
 public class IssuePanelRelationContextProvider implements ContextProvider

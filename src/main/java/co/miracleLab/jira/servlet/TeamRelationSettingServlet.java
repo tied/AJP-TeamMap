@@ -1,12 +1,9 @@
-package com.atlassian.jira.servlet;
+package co.miracleLab.jira.servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.atlassian.activeobjects.external.ActiveObjects;
-import com.atlassian.jira.ao.RelationService;
-import com.atlassian.jira.ao.RelationshipService;
-import com.atlassian.jira.ao.SavedRelation;
 import com.atlassian.jira.bc.issue.search.SearchService;
 import com.atlassian.jira.component.ComponentAccessor;
 import com.atlassian.jira.config.properties.APKeys;
@@ -20,9 +17,13 @@ import com.atlassian.sal.api.pluginsettings.PluginSettingsFactory;
 import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.sal.api.user.UserProfile;
 import com.atlassian.templaterenderer.TemplateRenderer;
-import com.atlassian.jira.jira.webwork.WebAction;
-import com.atlassian.jira.model.ItemException;
-import com.atlassian.jira.model.Relation;
+
+import co.miracleLab.jira.ao.RelationService;
+import co.miracleLab.jira.ao.RelationshipService;
+import co.miracleLab.jira.ao.SavedRelation;
+import co.miracleLab.jira.jira.webwork.WebAction;
+import co.miracleLab.jira.model.ItemException;
+import co.miracleLab.jira.model.Relation;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -95,7 +96,7 @@ public class TeamRelationSettingServlet extends HttpServlet{
 		
 		List<Relation> relations=new ArrayList<Relation>();
 		for(SavedRelation savedRelation : relationService.allinProject(project.getKey())){
-			if(savedRelation.getOwnerId().equals(userProfile.getUsername()) || savedRelation.isShared()){
+			if(savedRelation.getMlajtpOwnerId().equals(userProfile.getUsername()) || savedRelation.isMlajtpShared()){
 				Relation relation;
 				try {
 					relation = new Relation(savedRelation);

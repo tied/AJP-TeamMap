@@ -1,12 +1,9 @@
-package com.atlassian.jira.servlet;
+package co.miracleLab.jira.servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.atlassian.activeobjects.external.ActiveObjects;
-import com.atlassian.jira.ao.RelationService;
-import com.atlassian.jira.ao.RelationshipService;
-import com.atlassian.jira.ao.SavedRelation;
 import com.atlassian.jira.bc.JiraServiceContext;
 import com.atlassian.jira.bc.JiraServiceContextImpl;
 import com.atlassian.jira.bc.filter.SearchRequestService;
@@ -19,12 +16,8 @@ import com.atlassian.jira.issue.IssueManager;
 import com.atlassian.jira.issue.search.SearchException;
 import com.atlassian.jira.issue.search.SearchRequest;
 import com.atlassian.jira.issue.search.SearchRequestManager;
-import com.atlassian.jira.jira.webwork.WebAction;
 import com.atlassian.jira.jql.builder.JqlClauseBuilder;
 import com.atlassian.jira.jql.builder.JqlQueryBuilder;
-import com.atlassian.jira.model.ItemException;
-import com.atlassian.jira.model.Relation;
-import com.atlassian.jira.model.TeamMap;
 import com.atlassian.jira.project.Project;
 import com.atlassian.jira.project.ProjectManager;
 import com.atlassian.jira.security.PermissionManager;
@@ -38,6 +31,14 @@ import com.atlassian.sal.api.pluginsettings.PluginSettingsFactory;
 import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.sal.api.user.UserProfile;
 import com.atlassian.templaterenderer.TemplateRenderer;
+
+import co.miracleLab.jira.ao.RelationService;
+import co.miracleLab.jira.ao.RelationshipService;
+import co.miracleLab.jira.ao.SavedRelation;
+import co.miracleLab.jira.jira.webwork.WebAction;
+import co.miracleLab.jira.model.ItemException;
+import co.miracleLab.jira.model.Relation;
+import co.miracleLab.jira.model.TeamMap;
 
 import javax.inject.Inject;
 import javax.inject.Named;

@@ -1,4 +1,4 @@
-package com.atlassian.jira.model;
+package co.miracleLab.jira.model;
 
 public class ItemException extends Exception {
 	private String ErrorTitle;

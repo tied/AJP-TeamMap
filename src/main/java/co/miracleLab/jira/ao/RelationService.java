@@ -1,4 +1,4 @@
-package com.atlassian.jira.ao;
+package co.miracleLab.jira.ao;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -24,14 +24,14 @@ public class RelationService {
 	public SavedRelation add(String title, String description, ApplicationUser user, Project project,
 			String phrase, String reversePhrase ,int color, boolean shared) {
 		final SavedRelation relation = ao.create(SavedRelation.class);
-		relation.setTitle(title);
-		relation.setDescription(description);
-		relation.setOwnerId(user.getUsername());
-		relation.setProjectId(project.getKey());
-		relation.setPhrase(phrase);
-		relation.setReversePhrase(reversePhrase);
-		relation.setShared(shared);
-		relation.setColor(color);
+		relation.setMlajtpTitle(title);
+		relation.setMlajtpDescription(description);
+		relation.setMlajtpOwnerId(user.getUsername());
+		relation.setMlajtpProjectId(project.getKey());
+		relation.setMlajtpPhrase(phrase);
+		relation.setMlajtpReversePhrase(reversePhrase);
+		relation.setMlajtpShared(shared);
+		relation.setMlajtpColor(color);
 		relation.save();
 		return relation;
 	}
@@ -41,32 +41,32 @@ public class RelationService {
 	}
 	
 	public List<SavedRelation> allinProject(String projeckKey) {
-		return newArrayList(ao.find(SavedRelation.class, "PROJECT_ID like ?", projeckKey));
+		return newArrayList(ao.find(SavedRelation.class, "MLAJTP_PROJECT_ID = ?", projeckKey));
 	}
 	
 	public List<SavedRelation> allActiveInProject(String projeckKey) {
-		return newArrayList(ao.find(SavedRelation.class, "PROJECT_ID like ? AND SHARED like ?", projeckKey,true));
+		return newArrayList(ao.find(SavedRelation.class, "MLAJTP_PROJECT_ID = ? AND MLAJTP_SHARED = ?", projeckKey,true));
 	}
 
 	public void deleteMe(String id) {
-		for (SavedRelation relation : ao.find(SavedRelation.class, "ID like ?", id)) {
+		for (SavedRelation relation : ao.find(SavedRelation.class, "ID = ?", Integer.parseInt(id))) {
 			ao.delete(relation);
 		}
 	}
 
 	public void toggleMe(String id) {
-		for (SavedRelation relation : ao.find(SavedRelation.class, "ID like ?", id)) {
-			if(relation.isShared())
-				relation.setShared(false);
+		for (SavedRelation relation : ao.find(SavedRelation.class, "ID = ?", Integer.parseInt(id))) {
+			if(relation.isMlajtpShared())
+				relation.setMlajtpShared(false);
 			else
-				relation.setShared(true);
+				relation.setMlajtpShared(true);
 			relation.save();
 		}
 	}
 	
-	public SavedRelation findRelation(String string){
+	public SavedRelation findRelation(String id){
 		SavedRelation result=null;
-		for (SavedRelation relation : ao.find(SavedRelation.class, "ID like ?", string)) {
+		for (SavedRelation relation : ao.find(SavedRelation.class, "ID = ?", Integer.parseInt(id))) {
 			result=relation;
 		}
 		return result;

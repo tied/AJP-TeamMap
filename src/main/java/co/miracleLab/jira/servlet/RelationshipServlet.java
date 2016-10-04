@@ -1,20 +1,14 @@
-package com.atlassian.jira.servlet;
+package co.miracleLab.jira.servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.atlassian.activeobjects.external.ActiveObjects;
-import com.atlassian.jira.ao.RelationService;
-import com.atlassian.jira.ao.RelationshipService;
-import com.atlassian.jira.ao.SavedRelation;
-import com.atlassian.jira.ao.SavedRelationship;
 import com.atlassian.jira.avatar.Avatar;
 import com.atlassian.jira.bc.issue.search.SearchService;
 import com.atlassian.jira.component.ComponentAccessor;
 import com.atlassian.jira.config.properties.APKeys;
 import com.atlassian.jira.issue.IssueManager;
-import com.atlassian.jira.model.Relation;
-import com.atlassian.jira.model.Relationship;
 import com.atlassian.jira.project.ProjectManager;
 import com.atlassian.jira.user.ApplicationUser;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
@@ -25,6 +19,13 @@ import com.atlassian.sal.api.user.UserProfile;
 import com.atlassian.templaterenderer.TemplateRenderer;
 import com.atlassian.upm.api.license.PluginLicenseManager;
 import com.atlassian.upm.api.license.entity.PluginLicense;
+
+import co.miracleLab.jira.ao.RelationService;
+import co.miracleLab.jira.ao.RelationshipService;
+import co.miracleLab.jira.ao.SavedRelation;
+import co.miracleLab.jira.ao.SavedRelationship;
+import co.miracleLab.jira.model.Relation;
+import co.miracleLab.jira.model.Relationship;
 
 import javax.inject.Inject;
 import javax.inject.Named;

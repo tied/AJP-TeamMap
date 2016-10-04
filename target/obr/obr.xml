@@ -1,17 +1,17 @@
-<repository lastmodified='20160801105655.139'>
-  <resource id='com.atlassian.jira.TeamMap/1.0.0' symbolicname='com.atlassian.jira.TeamMap' presentationname='TeamMap' uri='TeamMap-1.0.jar' version='1.0.0'>
+<repository lastmodified='20161003085337.347'>
+  <resource id='co.miracleLab.jira.TeamMap/1.0.4' symbolicname='co.miracleLab.jira.TeamMap' presentationname='TeamMap' uri='TeamMap-1.0.4.jar' version='1.0.4'>
     <description>This is the TeamMap plugin for Atlassian JIRA.</description>
-    <size>332243</size>
+    <size>334724</size>
     <documentation>http://www.miraclelab.co/</documentation>
     <capability name='bundle'>
-      <p n='symbolicname' v='com.atlassian.jira.TeamMap'/>
+      <p n='symbolicname' v='co.miracleLab.jira.TeamMap'/>
       <p n='presentationname' v='TeamMap'/>
-      <p n='version' t='version' v='1.0.0'/>
+      <p n='version' t='version' v='1.0.4'/>
       <p n='manifestversion' v='2'/>
     </capability>
     <capability name='package'>
       <p n='package' v='com.atlassian.jira.teamMap.api'/>
-      <p n='version' t='version' v='1.0.0'/>
+      <p n='version' t='version' v='1.0.4'/>
     </capability>
     <require name='package' filter='(&amp;(package=javax.servlet)(version&gt;=2.5.0))' extend='false' multiple='false' optional='false'>Import package javax.servlet;version=2.5</require>
     <require name='package' filter='(&amp;(package=javax.servlet.http)(version&gt;=2.5.0))' extend='false' multiple='false' optional='false'>Import package javax.servlet.http;version=2.5</require>
@@ -27,6 +27,8 @@
     <require name='package' filter='(&amp;(package=com.atlassian.jira.issue.search))' extend='false' multiple='false' optional='true'>Import package com.atlassian.jira.issue.search;resolution:=optional;version=0</require>
     <require name='package' filter='(&amp;(package=com.atlassian.jira.plugin.webfragment.model))' extend='false' multiple='false' optional='true'>Import package com.atlassian.jira.plugin.webfragment.model;resolution:=optional;version=0</require>
     <require name='package' filter='(&amp;(package=com.atlassian.jira.project))' extend='false' multiple='false' optional='true'>Import package com.atlassian.jira.project;resolution:=optional;version=0</require>
+    <require name='package' filter='(&amp;(package=com.atlassian.jira.security))' extend='false' multiple='false' optional='true'>Import package com.atlassian.jira.security;resolution:=optional;version=0</require>
+    <require name='package' filter='(&amp;(package=com.atlassian.jira.security.plugin))' extend='false' multiple='false' optional='true'>Import package com.atlassian.jira.security.plugin;resolution:=optional;version=0</require>
     <require name='package' filter='(&amp;(package=com.atlassian.jira.user))' extend='false' multiple='false' optional='true'>Import package com.atlassian.jira.user;resolution:=optional;version=0</require>
     <require name='package' filter='(&amp;(package=com.atlassian.jira.user.util))' extend='false' multiple='false' optional='true'>Import package com.atlassian.jira.user.util;resolution:=optional;version=0</require>
     <require name='package' filter='(&amp;(package=com.atlassian.jira.util.collect))' extend='false' multiple='false' optional='true'>Import package com.atlassian.jira.util.collect;resolution:=optional;version=0</require>

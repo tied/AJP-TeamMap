@@ -2,9 +2,9 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.atlassian.jira</groupId>
+    <groupId>co.miracleLab.jira</groupId>
     <artifactId>TeamMap</artifactId>
-    <version>1.0</version>
+    <version>1.0.4</version>
     <organization>
         <name>Miracle Lab</name>
         <url>http://www.miraclelab.co/</url>
@@ -202,7 +202,7 @@
         </plugins>
     </build>
     <properties>
-        <jira.version>7.1.9</jira.version>
+        <jira.version>7.2.1</jira.version>
         <amps.version>6.2.3</amps.version>
         <greenhopper.version>6.7.11</greenhopper.version>
 		<ao.version>1.1.0</ao.version>

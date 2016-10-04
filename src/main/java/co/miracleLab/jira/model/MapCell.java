@@ -1,4 +1,4 @@
-package com.atlassian.jira.model;
+package co.miracleLab.jira.model;
 
 public class MapCell {
 	private int value=0;

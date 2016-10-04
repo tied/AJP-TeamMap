@@ -20,6 +20,8 @@ AJS.$(document).ready(function(){
 	});
 	
 	AJS.$(".relations-colors-bar div").tooltip();
+	AJS.$(".map-cell-dev").tooltip();
+	
 	heightAdjuster();
 	AJS.$(window).resize(function(){
 		heightAdjuster();

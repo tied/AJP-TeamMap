@@ -1,13 +1,14 @@
-package com.atlassian.jira.model;
+package co.miracleLab.jira.model;
 
 import java.io.IOException;
 
-import com.atlassian.jira.ao.SavedRelation;
 import com.atlassian.jira.component.ComponentAccessor;
 import com.atlassian.jira.project.Project;
 import com.atlassian.jira.project.ProjectManager;
 import com.atlassian.jira.user.ApplicationUser;
 import com.atlassian.jira.user.util.UserManager;
+
+import co.miracleLab.jira.ao.SavedRelation;
 
 
 public class Relation {
@@ -27,15 +28,15 @@ public class Relation {
 	
 	public Relation(SavedRelation record) throws ItemException{
 		try{
-			setOwner(userManager.getUserByName(record.getOwnerId()));
-			setTitle(record.getTitle());
-			setDescription(record.getDescription());
-			setShared(record.isShared());
+			setOwner(userManager.getUserByName(record.getMlajtpOwnerId()));
+			setTitle(record.getMlajtpTitle());
+			setDescription(record.getMlajtpDescription());
+			setShared(record.isMlajtpShared());
 			setId(record.getID());
-			setPhrase(record.getPhrase());
-			setReversePhrase(record.getReversePhrase());
-			setColor(record.getColor());
-			setProject(projectManager.getProjectByCurrentKeyIgnoreCase(record.getProjectId()));
+			setPhrase(record.getMlajtpPhrase());
+			setReversePhrase(record.getMlajtpReversePhrase());
+			setColor(record.getMlajtpColor());
+			setProject(projectManager.getProjectByCurrentKeyIgnoreCase(record.getMlajtpProjectId()));
 		}
 		catch (Exception e){
 			ItemException ie=new ItemException();

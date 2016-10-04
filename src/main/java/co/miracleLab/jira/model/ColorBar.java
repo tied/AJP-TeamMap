@@ -1,4 +1,4 @@
-package com.atlassian.jira.model;
+package co.miracleLab.jira.model;
 
 public class ColorBar {
 	public static String[] colorNames={"green","red","yellow","blue","brown","gray"};

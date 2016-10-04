@@ -1,4 +1,4 @@
-package com.atlassian.jira.jira.webwork;
+package co.miracleLab.jira.jira.webwork;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

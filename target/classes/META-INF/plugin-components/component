@@ -1,0 +1,4 @@
+co.miracleLab.jira.context.IssuePanelRelationContextProvider#IssuePanelRelationContextProvider
+co.miracleLab.jira.servlet.RelationshipServlet#RelationshipServlet
+co.miracleLab.jira.servlet.TeamMapsServlet#TeamMapsServlet
+co.miracleLab.jira.servlet.TeamRelationSettingServlet#TeamRelationSettingServlet

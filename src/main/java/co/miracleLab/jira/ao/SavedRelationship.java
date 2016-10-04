@@ -1,4 +1,4 @@
-package com.atlassian.jira.ao;
+package co.miracleLab.jira.ao;
 
 
 
@@ -9,16 +9,16 @@ import net.java.ao.Preload;
 
 @Preload
 public interface SavedRelationship extends Entity {
-	int getRelationId();
-    void setRelationId(int relationId);
-    String getUserOneId();
-    void setUserOneId(String userId);
-    String getUserTwoId();
-    void setUserTwoId(String userId);
-    String getProjectKey();
-    void setProjectKey(String projectKey);
-    long getIssueId();
-    void setIssueId(long issueId);
-    Date getReportDate();
-    void setReportDate(Date date);
+	int getMlajtpRelationId();
+    void setMlajtpRelationId(int relationId);
+    String getMlajtpUserOneId();
+    void setMlajtpUserOneId(String userId);
+    String getMlajtpUserTwoId();
+    void setMlajtpUserTwoId(String userId);
+    String getMlajtpProjectKey();
+    void setMlajtpProjectKey(String projectKey);
+    long getMlajtpIssueId();
+    void setMlajtpIssueId(long issueId);
+    Date getMlajtpReportDate();
+    void setMlajtpReportDate(Date date);
 }

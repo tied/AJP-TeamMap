@@ -1,0 +1,9 @@
+com.atlassian.activeobjects.external.ActiveObjects
+com.atlassian.jira.bc.issue.search.SearchService
+com.atlassian.jira.issue.IssueManager
+com.atlassian.jira.project.ProjectManager
+com.atlassian.sal.api.auth.LoginUriProvider
+com.atlassian.sal.api.pluginsettings.PluginSettingsFactory
+com.atlassian.sal.api.user.UserManager
+com.atlassian.templaterenderer.TemplateRenderer
+com.atlassian.upm.api.license.PluginLicenseManager

@@ -2,10 +2,10 @@
 <head>
 <title>Team Map</title>
 <meta name="decorator" content="atl.general">
-#set($pluginResource="$baseURL/download/resources/com.atlassian.jira.TeamMap:TeamMap-resources")
+#set($pluginResource="$baseURL/download/resources/co.miracleLab.jira.TeamMap:TeamMap-resources")
 #set($avatarUrl="$baseURL/secure/useravatar")
-$webResourceManager.requireResource("com.atlassian.jira.TeamMap:TeamMap-resources")
-$webResourceManager.requireResource("com.atlassian.jira.TeamMap:my-team-maps-servlet-resources")
+$webResourceManager.requireResource("co.miracleLab.jira.TeamMap:TeamMap-resources")
+$webResourceManager.requireResource("co.miracleLab.jira.TeamMap:my-team-maps-servlet-resources")
 </head>
 <body>
 		<!-- AUI Sidebar -->

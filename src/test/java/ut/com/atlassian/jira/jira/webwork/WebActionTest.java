@@ -3,7 +3,8 @@ package ut.com.atlassian.jira.jira.webwork;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import com.atlassian.jira.jira.webwork.WebAction;
+
+import co.miracleLab.jira.jira.webwork.WebAction;
 
 import static org.mockito.Mockito.*;
 

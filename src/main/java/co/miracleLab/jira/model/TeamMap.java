@@ -1,21 +1,22 @@
-package com.atlassian.jira.model;
+package co.miracleLab.jira.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.atlassian.jira.ao.RelationService;
-import com.atlassian.jira.ao.RelationshipService;
-import com.atlassian.jira.ao.SavedRelationship;
 import com.atlassian.jira.bc.issue.search.SearchService;
 import com.atlassian.jira.issue.Issue;
 import com.atlassian.jira.issue.search.SearchException;
 import com.atlassian.jira.issue.search.SearchRequest;
-import com.atlassian.jira.jira.webwork.WebAction;
 import com.atlassian.jira.user.ApplicationUser;
 import com.atlassian.jira.web.bean.PagerFilter;
 import com.atlassian.query.Query;
+
+import co.miracleLab.jira.ao.RelationService;
+import co.miracleLab.jira.ao.RelationshipService;
+import co.miracleLab.jira.ao.SavedRelationship;
+import co.miracleLab.jira.jira.webwork.WebAction;
 
 public class TeamMap {
 	private SearchRequest filter;

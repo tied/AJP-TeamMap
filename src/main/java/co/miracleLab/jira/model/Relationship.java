@@ -1,11 +1,9 @@
-package com.atlassian.jira.model;
+package co.miracleLab.jira.model;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.atlassian.jira.ao.RelationService;
-import com.atlassian.jira.ao.SavedRelationship;
 import com.atlassian.jira.component.ComponentAccessor;
 import com.atlassian.jira.issue.Issue;
 import com.atlassian.jira.issue.IssueManager;
@@ -13,6 +11,9 @@ import com.atlassian.jira.project.Project;
 import com.atlassian.jira.project.ProjectManager;
 import com.atlassian.jira.user.ApplicationUser;
 import com.atlassian.jira.user.util.UserManager;
+
+import co.miracleLab.jira.ao.RelationService;
+import co.miracleLab.jira.ao.SavedRelationship;
 
 public class Relationship {
 	private int id;
@@ -28,12 +29,12 @@ public class Relationship {
 	public Relationship(SavedRelationship savedRelationship,RelationService relationService) throws ItemException{
 		try {
 		this.setId(savedRelationship.getID());
-		this.setProject(projectManager.getProjectObjByKeyIgnoreCase(savedRelationship.getProjectKey()));
-		this.setIssue(issueManager.getIssueObject(savedRelationship.getIssueId()));
-		this.setFirstUser(userManager.getUserByName(savedRelationship.getUserOneId()));
-		this.setSecondUser(userManager.getUserByName(savedRelationship.getUserTwoId()));
-		this.setDate(savedRelationship.getReportDate());
-		Relation aRelation=new Relation(relationService.findRelation(Integer.toString(savedRelationship.getRelationId())));
+		this.setProject(projectManager.getProjectObjByKeyIgnoreCase(savedRelationship.getMlajtpProjectKey()));
+		this.setIssue(issueManager.getIssueObject(savedRelationship.getMlajtpIssueId()));
+		this.setFirstUser(userManager.getUserByName(savedRelationship.getMlajtpUserOneId()));
+		this.setSecondUser(userManager.getUserByName(savedRelationship.getMlajtpUserTwoId()));
+		this.setDate(savedRelationship.getMlajtpReportDate());
+		Relation aRelation=new Relation(relationService.findRelation(Integer.toString(savedRelationship.getMlajtpRelationId())));
 		if(aRelation.isShared())
 			this.setRelation(aRelation);
 		else
