@@ -1,0 +1,7 @@
+ut\com\atlassian\jira\jira\webwork\WebActionTest.class
+ut\com\atlassian\jira\servlet\TeamRelationSettingServletTest.class
+ut\com\atlassian\jira\servlet\TeamMapsServletTest.class
+it\com\atlassian\jira\servlet\TeamRelationSettingServletFuncTest.class
+it\com\atlassian\jira\servlet\RelationShipServletFuncTest.class
+it\com\atlassian\jira\servlet\TeamMapsServletFuncTest.class
+ut\com\atlassian\jira\servlet\RelationShipServletTest.class

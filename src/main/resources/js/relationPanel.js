@@ -4,7 +4,8 @@ AJS.$(document).ready(function(){
 	});
 	AJS.$(document).on("click","#dialog-close-button",function(e){
 	    e.preventDefault();
-	    AJS.dialog2("#report-a-relationship-dialog").hide();
+	    var dialog=$(this).parents("section#report-a-relationship-dialog");
+	    AJS.dialog2(dialog).hide();
 	});
 	AJS.$(document).on("click","span.DeleteLink",function(e){
 	    var relationship=AJS.$(this).parents("div.aRelation");
@@ -30,12 +31,14 @@ AJS.$(document).ready(function(){
 	});
 	AJS.$(document).on("click","#dialog-submit-button",function(e){
 	    e.preventDefault();
-	    var projectKey=AJS.$("input#project-key").val();
-		var IssueId=AJS.$("input#issue-id").val();
-		var firstUser=AJS.$("select#first-user-select").val();
-		var secondUser=AJS.$("select#second-user-select").val();
-		var relationId=AJS.$("select#relation-select").val();
-		AJS.$.post(AJS.$("form#submit-relationship").attr("action"),
+	    var dialog=$(this).parents("section#report-a-relationship-dialog");
+	    var form=dialog.find("form");
+	    var projectKey=form.find("input#project-key").val();
+		var IssueId=form.find("input#issue-id").val();
+		var firstUser=form.find("select#first-user-select").val();
+		var secondUser=form.find("select#second-user-select").val();
+		var relationId=form.find("select#relation-select").val();
+		AJS.$.post(form.attr("action"),
 		        {
 					projectKey: projectKey,
 					IssueId: IssueId,
@@ -45,7 +48,7 @@ AJS.$(document).ready(function(){
 		        },
 		        function(status){
 		            if(status.match("^<div")){
-		            	AJS.$('form#relation-form').trigger("reset");
+		            	form.trigger("reset");
 		            	throwSuccess("Relationship Added","<p>New Relationship Has Been Recorded!</p>");
 		            	AJS.$("#relationships-box").prepend(status);
 		            }
@@ -55,10 +58,9 @@ AJS.$(document).ready(function(){
 		            	throwError("License Error!","<p>Team Map plugin's License is either expired or invalid.</p>","manual");
 		            else 
 		            	console.log(status);
-		            
-		            
+
 		});
-	    AJS.dialog2("#report-a-relationship-dialog").hide();
+		AJS.dialog2(dialog).hide();
 	});
 });
 function throwError(title,body,close){

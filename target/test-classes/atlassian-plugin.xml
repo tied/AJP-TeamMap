@@ -1,7 +1,7 @@
-<atlassian-plugin key="com.atlassian.jira.TeamMap-tests" name="TeamMap" plugins-version="2">
+<atlassian-plugin key="co.miracleLab.jira.TeamMap-tests" name="TeamMap" plugins-version="2">
     <plugin-info>
         <description>This is the TeamMap plugin for Atlassian JIRA.</description>
-        <version>1.0</version>
+        <version>1.0.4</version>
         <vendor name="Miracle Lab" url="http://www.miraclelab.co/" />
     </plugin-info>
 
